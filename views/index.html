@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple CRUD API</title>
+</head>
+<body>
+    <h1>Simple CRUD API</h1>
+    <a href="https://github.com/Dipo-Jaiye/ZuriSimpleCRUD_API">GitHub Link</a>
+    <h2>JSON Data Input Format</h2>
+    <p>Only JSON Data input is recognized. Multipart Form input or Urlencoded input are not recognized.</p>
+<pre> 
+{  
+&nbsp;&nbsp;&nbsp;&nbsp;"name": "owner name",  
+&nbsp;&nbsp;&nbsp;&nbsp;"email": "owner email",  
+&nbsp;&nbsp;&nbsp;&nbsp;"country": "owner country"  
+}
+</pre>
+    <p>JSON Data Output Format</p>
+<pre>
+{  
+&nbsp;&nbsp;&nbsp;&nbsp;"message": "success" || "error message",  
+&nbsp;&nbsp;&nbsp;&nbsp;"data": result data object || "null" if error  
+}
+</pre>
+    <h2>User Routes</h2>
+    <ul>
+        <li> Can view the Readme of the API (/) GET</li>
+        <li> Can create an entry (/api/data/create) POST</li>
+        <li>Can read all entries (/api/data) GET</li>
+        <li> Can read an entry with id (/api/data/:id) GET</li>
+        <li> Can update an entry with id (api/data/:id/update) PUT</li>
+        <li> Can delete an entry with id (api/data/:id/delete) DELETE</li>
+    </ul>
+
+    <h2>Data Model</h2>
+    <ul>
+        <li> Name (required)</li>
+        <li> Email (required)</li>
+        <li> Country (required)</li>
+    </ul>
+</body>
+</html>
