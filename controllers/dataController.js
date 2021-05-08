@@ -73,8 +73,14 @@ module.exports = {
         let param = getBody(req.body);
         Data.findByIdAndUpdate(req.params.id,{$set: param},{new:true})
         .then(data => {
-            res.locals.data = data;
-            next();
+            if(data) {
+                console.log(data);
+                res.locals.data = data;
+                next();
+            }
+            else{
+                next(new Error("data not found"));
+            }
         })
         .catch(err=>{
             console.error(`Error occurred while updating: ${err.message}`);
@@ -85,8 +91,14 @@ module.exports = {
     delete: (req,res,next) => {
         Data.findByIdAndRemove(req.params.id)
         .then(data => {
-            res.locals.data = data;
-            next();
+            if(data) {
+                console.log(data);
+                res.locals.data = data;
+                next();
+            }
+            else{
+                next(new Error("data does not exist"));
+            }
         })
         .catch(err => {
             console.error(`Error occurred while deleting: ${err.message}`);
