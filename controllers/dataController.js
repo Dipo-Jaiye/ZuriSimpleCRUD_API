@@ -37,8 +37,14 @@ module.exports = {
     index: (req,res,next) => {
         Data.find({})
         .then(data=>{
-            res.locals.data = data;
-            next();
+            if(data) {
+                res.locals.data = data;
+                next();
+            }
+            else{
+                next(new Error("data not found"));
+            }
+            
         })
         .catch(err=>{
             console.error(`Error occurred while retrieving: ${err.message}`);
@@ -49,8 +55,13 @@ module.exports = {
     read: (req,res,next) => {
         Data.findById(req.params.id)
         .then(data=>{
-            res.locals.data = data;
-            next();
+            if(data) {
+                res.locals.data = data;
+                next();
+            }
+            else{
+                next(new Error("data not found"));
+            }
         })
         .catch(err=>{
             console.error(`Error occurred while retrieving: ${err.message}`);
