@@ -37,12 +37,12 @@ module.exports = {
     index: (req,res,next) => {
         Data.find({})
         .then(data=>{
-            if(data) {
+            if(data.length > 0) {
                 res.locals.data = data;
                 next();
             }
             else{
-                next(new Error("data not found"));
+                next(new Error("No data in Database"));
             }
             
         })
