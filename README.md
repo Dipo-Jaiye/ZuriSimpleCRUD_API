@@ -16,7 +16,7 @@ Only JSON Data input is recognized. Multipart Form input or Urlencoded input are
 &nbsp;&nbsp;&nbsp;&nbsp;"message": "success" || "error message",  
 &nbsp;&nbsp;&nbsp;&nbsp;"data": result data object || "null" if error  
 }
-## User Roles
+## User Routes
 
 1. Can view the Readme of the API (/) GET
 2. Can create an entry (/api/data/create) POST
