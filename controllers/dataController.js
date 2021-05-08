@@ -123,6 +123,6 @@ module.exports = {
     },
 
     notFoundJSON: (req,res,next) => {
-        next(new Error("Not Found"));
+        next(new Error("route undefined"));
     }
 };
