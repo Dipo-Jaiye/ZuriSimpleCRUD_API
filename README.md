@@ -4,7 +4,10 @@
 [App](https://whispering-castle-95687.herokuapp.com/)
 
 ## JSON Data Input Format
-Only JSON Data input is recognized. Multipart Form input or Urlencoded input are not recognized.  
+Only JSON Data input is recognized. Multipart Form input or Urlencoded input or other Content-Types are not recognized. 
+
+When an unsupported type is sent in the request, a `"request body is empty"` error message will be returned.  
+
 {  
 &nbsp;&nbsp;&nbsp;&nbsp;"name": "owner name",  
 &nbsp;&nbsp;&nbsp;&nbsp;"email": "owner email",  
@@ -14,7 +17,7 @@ Only JSON Data input is recognized. Multipart Form input or Urlencoded input are
 ## JSON Data Output Format
 {  
 &nbsp;&nbsp;&nbsp;&nbsp;"message": "success" || "error message",  
-&nbsp;&nbsp;&nbsp;&nbsp;"data": result data object || "null" if error  
+&nbsp;&nbsp;&nbsp;&nbsp;"data": result data object || `null` if error  
 }
 
 ### Sample result data object
@@ -32,6 +35,7 @@ Only JSON Data input is recognized. Multipart Form input or Urlencoded input are
 
 2. Can create an entry (/api/data/create) POST  
 All fields as in the model are required.  
+When any fields outside those specified are sent in the request, an error is returned.  
 On successful creation, the result data object has _id and __v fields in addition to the name, country and email fields
 
 3. Can read all entries (/api/data) GET
@@ -40,9 +44,10 @@ On successful creation, the result data object has _id and __v fields in additio
 
 5. Can update an entry with id (api/data/:id/update) PUT  
 Any of the name, country or email fields can be specified for updating.  
-Fields specified outside these three will not be added in the database.
+Fields specified outside these three will not be added in the database and an error will be returned
 
-6. Can delete an entry with id (api/data/:id/delete) DELETE
+6. Can delete an entry with id (api/data/:id/delete) DELETE  
+On successful deletion, the result data object in the response will be `null`
 
 ## Data Model
 

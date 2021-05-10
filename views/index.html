@@ -10,7 +10,8 @@
     <h1>Simple CRUD API</h1>
     <a href="https://github.com/Dipo-Jaiye/ZuriSimpleCRUD_API">GitHub Link</a>
     <h2>JSON Data Input Format</h2>
-    <p>Only JSON Data input is recognized. Multipart Form input or Urlencoded input are not recognized.</p>
+    <p>Only JSON Data input is recognized. Multipart Form input or Urlencoded input or other Content-Types are not recognized.</p>
+    <p>When an unsupported type is sent in the request, a <code>"request body is empty"</code> error message will be returned.</p>
 <pre> 
 {  
 &nbsp;&nbsp;&nbsp;&nbsp;"name": "owner name",  
@@ -22,17 +23,38 @@
 <pre>
 {  
 &nbsp;&nbsp;&nbsp;&nbsp;"message": "success" || "error message",  
-&nbsp;&nbsp;&nbsp;&nbsp;"data": result data object || "null" if error  
+&nbsp;&nbsp;&nbsp;&nbsp;"data": result data object || null if error  
+}
+</pre>
+    <p>Sample result data object</p>
+<pre>
+{
+&nbsp;&nbsp;&nbsp;&nbsp;"_id": "6096bafe552f499d7c8d2550",
+&nbsp;&nbsp;&nbsp;&nbsp;"name": "Dipo",
+&nbsp;&nbsp;&nbsp;&nbsp;"email": "dipo@zuri.com",
+&nbsp;&nbsp;&nbsp;&nbsp;"country": "Nigeria",
+&nbsp;&nbsp;&nbsp;&nbsp;"__v": 0
 }
 </pre>
     <h2>User Routes</h2>
     <ul>
-        <li> Can view the Readme of the API (/) GET</li>
+        <li> Can view the Readme of the API (/) GET</li><br>
+
         <li> Can create an entry (/api/data/create) POST</li>
-        <li>Can read all entries (/api/data) GET</li>
-        <li> Can read an entry with id (/api/data/:id) GET</li>
+        <p>All fields as in the model are required.</p>
+        <p>When any fields outside those specified are sent in the request, an error is returned.</p>
+        <p>On successful creation, the result data object has _id and __v fields in addition to the name, country and email fields</p><br>
+
+        <li>Can read all entries (/api/data) GET</li><br>
+
+        <li> Can read an entry with id (/api/data/:id) GET</li><br>
+
         <li> Can update an entry with id (api/data/:id/update) PUT</li>
+        <p>Any of the name, country or email fields can be specified for updating.</p>
+        <p>Fields specified outside these three will not be added in the database and an error will be returned</p><br>
+
         <li> Can delete an entry with id (api/data/:id/delete) DELETE</li>
+        <p>On successful deletion, the result data object in the response will be <code>null</code></p>
     </ul>
 
     <h2>Data Model</h2>

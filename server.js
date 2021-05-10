@@ -11,7 +11,7 @@ connectDb();
 const app = express();
 
 //Initialize middleware
-app.use(express.json({extended:false}));
+app.use(express.json()); //Only parse JSON requests
 app.use(router);
 
 //Start listening
