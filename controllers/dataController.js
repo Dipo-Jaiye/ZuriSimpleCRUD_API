@@ -145,7 +145,7 @@ module.exports = {
         if(req.body.hasOwnProperty("name")){
             await body('name',"Name is required").notEmpty()
             .bail()
-            .matches(/^[a-zA-Z0-9\s.-'_]+$/i)
+            .matches(/^[a-zA-Z0-9\s-'_]+$/i)
             .withMessage("Invalid name")
             .trim().run(req);
         }
