@@ -145,6 +145,8 @@ module.exports = {
         if(req.body.hasOwnProperty("name")){
             await body('name',"Name is required").notEmpty()
             .bail()
+            .matches(/^[a-zA-Z0-9_]+$/i)
+            .withMessage("Invalid name, only letters, numbers and underscores allowed")
             .trim().run(req);
         }
 
@@ -160,6 +162,9 @@ module.exports = {
         //If country is provided, confirm it is not empty
         if(req.body.hasOwnProperty("country")){
             await body('country',"Country is required").notEmpty()
+            .bail()
+            .matches(/^[a-zA-Z-'\s]+$/i)
+            .withMessage("Invalid country name")
             .bail()
             .trim().run(req);
         }
