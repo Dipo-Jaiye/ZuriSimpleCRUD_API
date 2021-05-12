@@ -14,6 +14,7 @@ module.exports = {
     home: (req,res,next)=>{
         try
         {
+            res.status(200);
             res.sendFile(process.cwd() + '/views/index.html');
         }
         catch(err)
@@ -26,7 +27,9 @@ module.exports = {
         let param = getBody(req.body);
         Data.create(param)
         .then((data)=>{
+            res.locals.status = 201;
             res.locals.data = data;
+            res.location(`/api/data/${data._id}`);
             next();
         })
         .catch(err=>{
@@ -43,6 +46,7 @@ module.exports = {
                 next();
             }
             else{
+                res.locals.status = 400;
                 next(new Error("No data in Database"));
             }
             
@@ -61,6 +65,7 @@ module.exports = {
                 next();
             }
             else{
+                res.locals.status = 400;
                 next(new Error("data not found"));
             }
         })
@@ -79,6 +84,7 @@ module.exports = {
                     next();
                 }
                 else{
+                    res.locals.status = 400;
                     next(new Error("data not found"));
                 }
             })
@@ -97,6 +103,7 @@ module.exports = {
                 next();
             }
             else{
+                res.locals.status = 400;
                 next(new Error("data does not exist"));
             }
         })
@@ -107,8 +114,8 @@ module.exports = {
     },
 
     respondJSON: (req,res) => {
-        
-        res.json({
+        const status = res.locals.status || 200;
+        res.status(status).json({
             message: "success",
             data: res.locals.data
         },null,"\t");
@@ -116,7 +123,9 @@ module.exports = {
 
     errorJSON: (err,req,res,next) => {
         if (err) {
-            res.json({
+            console.log(res.locals);
+            const status = res.locals.status || 500;
+            res.status(status).json({
                 message: `${err.message}`,
                 data: null
             },null,2);
@@ -124,6 +133,7 @@ module.exports = {
     },
 
     notFoundJSON: (req,res,next) => {
+        res.locals.status = 404;
         next(new Error("route undefined"));
     },
 
@@ -175,6 +185,7 @@ module.exports = {
         
         //If there are validation errors, compile them together
         if(!errors.isEmpty()){
+            res.locals.status = 400;
             next(new Error(errors.array().reduce((prev,{msg:cur})=>`${prev}${cur}; `,"").trimEnd()));
         }
         next();
