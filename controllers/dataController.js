@@ -123,7 +123,6 @@ module.exports = {
 
     errorJSON: (err,req,res,next) => {
         if (err) {
-            console.log(res.locals);
             const status = res.locals.status || 500;
             res.status(status).json({
                 message: `${err.message}`,
