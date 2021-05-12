@@ -107,9 +107,10 @@ module.exports = {
     },
 
     respondJSON: (req,res) => {
+        const data = res.locals.data;
         res.json({
             message: "success",
-            data: res.locals.data
+            data: {data}
         },null,"\t");
     },
 
