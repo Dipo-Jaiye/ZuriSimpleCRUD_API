@@ -1,7 +1,7 @@
 # Simple CRUD API
 
 ## Link to API
-[App](https://whispering-castle-95687.herokuapp.com/)
+[App](https://zurinode.herokuapp.com/)
 
 ## JSON Data Input Format
 Only JSON Data input is recognized. Multipart Form input or Urlencoded input or other Content-Types are not recognized. 
