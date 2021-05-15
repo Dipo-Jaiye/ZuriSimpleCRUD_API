@@ -166,7 +166,14 @@ module.exports = {
             .bail()
             .isEmail().withMessage("Invalid Email")
             .bail()
-            .normalizeEmail().run(req);
+            .normalizeEmail()
+            .custom(async value => {
+                const data = await Data.find({ email: value });
+                if (data.length) {
+                    return Promise.reject('E-mail already in use');
+                }
+            })
+            .run(req);
         }
 
         //If country is provided, confirm it is not empty
